@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¡Feliz Navidad!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- 🎶 Música -->
+  <audio id="music" loop>
+    <source src="audio/navidad.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- 🔊 Botón mute -->
+  <button id="muteBtn" aria-label="Silenciar música">🔊</button>
+
+  <!-- 🎄 Tarjeta central -->
+  <div class="card">
+    <h1>🎄 ¡Feliz Navidad! 🎄</h1>
+    <p class="subtitle">Que estas fiestas te llenen de alegría ✨</p>
+  </div>
+
+  <!-- ❄️ Canvas nieve + fuegos -->
+  <canvas id="snow"></canvas>
+
+  <!-- 🖼️ Overlay de imágenes -->
+  <div id="imageOverlay" class="hidden">
+    <img id="overlayImage" src="" alt="">
+    <p id="overlayText"></p>
+  </div>
+
+  <!-- 🧠 JavaScript -->
+  <script src="script.js"></script>
+
+</body>
+</html>
