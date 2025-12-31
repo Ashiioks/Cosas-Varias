@@ -13,19 +13,55 @@ window.onload = function () {
     const bgMusic = document.getElementById("background-music");
     const muteBtn = document.getElementById("mute-btn");
     const muteIcon = document.getElementById("mute-icon");
+    const musicPrompt = document.getElementById("music-prompt");
     let isMuted = false;
+    let musicStarted = false;
 
-    // Intentar reproducir la música automáticamente
-    bgMusic.volume = 0.3; // Volumen al 30%
-    bgMusic.play().catch(function(error) {
-        console.log("Reproducción automática bloqueada. Haz clic para activar la música.");
-    });
+    // Función para iniciar la música
+    function startMusic() {
+        if (!musicStarted && !isMuted) {
+            bgMusic.volume = 0.3;
+            bgMusic.play().then(() => {
+                musicStarted = true;
+                if (musicPrompt) {
+                    musicPrompt.classList.add('hidden');
+                    setTimeout(() => musicPrompt.remove(), 500);
+                }
+            }).catch(function(error) {
+                console.log("Esperando interacción del usuario para reproducir música.");
+            });
+        }
+    }
 
-    // Toggle mute/unmute
-    muteBtn.addEventListener("click", function() {
-        isMuted = !isMuted;
-        bgMusic.muted = isMuted;
-        muteIcon.textContent = isMuted ? "🔇" : "🔊";
+    // Intentar reproducir inmediatamente
+    startMusic();
+
+    // Iniciar música con cualquier interacción del usuario
+    document.addEventListener("click", startMusic, { once: false });
+    document.addEventListener("touchstart", startMusic, { once: false });
+
+    // Toggle mute/unmute y asegurar que la música se inicie
+    muteBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        if (!musicStarted) {
+            bgMusic.volume = 0.3;
+            bgMusic.play().then(() => {
+                musicStarted = true;
+                if (musicPrompt) {
+                    musicPrompt.classList.add('hidden');
+                    setTimeout(() => musicPrompt.remove(), 500);
+                }
+                isMuted = !isMuted;
+                bgMusic.muted = isMuted;
+                muteIcon.textContent = isMuted ? "🔇" : "🔊";
+            }).catch(() => {
+                console.log("No se pudo iniciar la música");
+            });
+        } else {
+            isMuted = !isMuted;
+            bgMusic.muted = isMuted;
+            muteIcon.textContent = isMuted ? "🔇" : "🔊";
+        }
     });
 
     // Crear estrellas parpadeantes

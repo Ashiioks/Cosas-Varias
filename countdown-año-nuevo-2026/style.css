@@ -44,6 +44,41 @@ html,
     transform: scale(0.95);
   }
 
+  /* Indicador de música */
+  .music-prompt {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 12px 24px;
+    border-radius: 25px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: white;
+    z-index: 1001;
+    animation: pulse-prompt 2s ease-in-out infinite;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+
+  .music-prompt.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @keyframes pulse-prompt {
+    0%, 100% {
+      transform: translateX(-50%) scale(1);
+    }
+    50% {
+      transform: translateX(-50%) scale(1.05);
+    }
+  }
+
   /* Count down code */
   @-webkit-keyframes cd-flowin {
     0% {
@@ -429,6 +464,12 @@ html,
 
     .floating-emoji {
       font-size: 2em;
+    }
+
+    .music-prompt {
+      font-size: 12px;
+      padding: 10px 20px;
+      top: 15px;
     }
   }
 
