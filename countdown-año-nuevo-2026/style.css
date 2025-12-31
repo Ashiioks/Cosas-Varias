@@ -4,12 +4,44 @@ html,
   }
 
   body {
-    background-color: #000e31;
+    background: linear-gradient(to bottom, #000428, #004e92);
     color: #fff;
-    font-family: "Courier New", Courier, monospace;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     z-index: 0;
+    overflow: hidden;
+  }
+
+  /* Botón de mute */
+  .mute-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+  }
+
+  .mute-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+  }
+
+  .mute-button:active {
+    transform: scale(0.95);
   }
 
   /* Count down code */
@@ -57,15 +89,38 @@ html,
 
   @keyframes cd-new-year-title {
     0% {
-      color: red;
+      background: linear-gradient(45deg, #ff0000, #ff7f00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    25% {
+      background: linear-gradient(45deg, #ffff00, #00ff00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     50% {
-      color: blue;
+      background: linear-gradient(45deg, #00ffff, #0000ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    75% {
+      background: linear-gradient(45deg, #ff00ff, #ff0080);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     100% {
-      color: green;
+      background: linear-gradient(45deg, #ff0000, #ff7f00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
   }
 
@@ -129,11 +184,15 @@ html,
 
   #cd .cd__title {
     color: #ebebeb;
-    font-family: emoji;
+    font-family: 'Orbitron', sans-serif;
     font-size: 2.2em;
-    font-weight: 700;
+    font-weight: 900;
     -webkit-transition: all 1s;
     transition: all 1s;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5),
+                 0 0 40px rgba(255, 255, 255, 0.3),
+                 0 0 60px rgba(255, 255, 255, 0.2);
+    letter-spacing: 2px;
   }
 
   #cd .cd__title.cd__title--newyear {
@@ -147,11 +206,31 @@ html,
     color: #fff;
     display: inline-block;
     padding: 5% 3.5%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    margin: 5px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  #cd .cd__ele:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
   }
 
   #cd .cd__ele .cd__ele__value {
     display: block;
     font-size: 3.1em;
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                 0 0 20px rgba(255, 255, 255, 0.6),
+                 0 0 30px rgba(87, 163, 0, 0.6),
+                 0 0 40px rgba(87, 163, 0, 0.4);
   }
 
   #cd .cd__ele .cd__ele__name {
@@ -161,10 +240,46 @@ html,
 
   #cd .cd__ele--secs {
     color: #57a300;
+    background: rgba(87, 163, 0, 0.1);
+    border-color: rgba(87, 163, 0, 0.5);
+    animation: pulse-seconds 1s ease-in-out infinite;
+  }
+
+  @keyframes pulse-seconds {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 8px 32px rgba(87, 163, 0, 0.3),
+                  inset 0 0 20px rgba(87, 163, 0, 0.2);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 12px 40px rgba(87, 163, 0, 0.5),
+                  inset 0 0 30px rgba(87, 163, 0, 0.3);
+    }
   }
 
   #cd .cd__timetil {
     margin-top: 2%;
+  }
+
+  /* Estrellas */
+  #stars-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
   }
 
   /* --< Background >-- */
@@ -224,7 +339,11 @@ html,
   .celebrate {
     font-size: 2em;
     margin-top: 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
     animation: float 1.5s ease-in-out infinite, zoom 2s ease-in-out infinite;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+                 0 0 40px rgba(255, 215, 0, 0.6);
   }
 
   @keyframes float {
@@ -270,9 +389,65 @@ html,
   .floating-emoji {
     position: fixed;
     bottom: -50px;
-    /* Start below the viewport */
     font-size: 2.5em;
     animation: floatUp 5s ease-in-out forwards;
     z-index: 9999;
     pointer-events: none;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+  }
+
+  /* Media queries para móviles */
+  @media (max-width: 768px) {
+    #cd .cd__title {
+      font-size: 1.5em;
+    }
+
+    #cd .cd__ele {
+      padding: 3% 2%;
+      margin: 3px;
+    }
+
+    #cd .cd__ele .cd__ele__value {
+      font-size: 2.2em;
+    }
+
+    #cd .cd__ele .cd__ele__name {
+      font-size: 0.75em;
+    }
+
+    .mute-button {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      bottom: 15px;
+      right: 15px;
+    }
+
+    .celebrate {
+      font-size: 1.5em;
+    }
+
+    .floating-emoji {
+      font-size: 2em;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #cd .cd__title {
+      font-size: 1.2em;
+    }
+
+    #cd .cd__ele {
+      padding: 2% 1.5%;
+    }
+
+    #cd .cd__ele .cd__ele__value {
+      font-size: 1.8em;
+    }
+
+    .mute-button {
+      width: 45px;
+      height: 45px;
+      font-size: 18px;
+    }
   }

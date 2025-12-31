@@ -9,6 +9,45 @@ window.onload = function () {
         cd_timetil: document.getElementById("cd-timetil"),
     };
 
+    // Control de música
+    const bgMusic = document.getElementById("background-music");
+    const muteBtn = document.getElementById("mute-btn");
+    const muteIcon = document.getElementById("mute-icon");
+    let isMuted = false;
+
+    // Intentar reproducir la música automáticamente
+    bgMusic.volume = 0.3; // Volumen al 30%
+    bgMusic.play().catch(function(error) {
+        console.log("Reproducción automática bloqueada. Haz clic para activar la música.");
+    });
+
+    // Toggle mute/unmute
+    muteBtn.addEventListener("click", function() {
+        isMuted = !isMuted;
+        bgMusic.muted = isMuted;
+        muteIcon.textContent = isMuted ? "🔇" : "🔊";
+    });
+
+    // Crear estrellas parpadeantes
+    createStars();
+
+    function createStars() {
+        const starsContainer = document.getElementById("stars-container");
+        const numStars = 100;
+        
+        for (let i = 0; i < numStars; i++) {
+            const star = document.createElement("div");
+            star.className = "star";
+            star.style.left = Math.random() * 100 + "%";
+            star.style.top = Math.random() * 100 + "%";
+            star.style.width = Math.random() * 3 + 1 + "px";
+            star.style.height = star.style.width;
+            star.style.animationDelay = Math.random() * 3 + "s";
+            star.style.animationDuration = Math.random() * 3 + 2 + "s";
+            starsContainer.appendChild(star);
+        }
+    }
+
     elements.cd_title.innerHTML += " " + (new Date().getFullYear() + 1);
     var endDate = new Date(new Date().getFullYear() + 1 + "/1/1"),
         sec = 1000,
@@ -31,6 +70,7 @@ window.onload = function () {
             );
 
             setInterval(() => createFloatingEmojis(), 200);
+            setInterval(() => createFirework(), 300);
             return clearInterval(cdInterval);
         }
         var days = Math.floor(dif / day),
@@ -59,5 +99,49 @@ window.onload = function () {
             document.body.appendChild(emoji);
             setTimeout(() => emoji.remove(), 3000);
         }
+    }
+
+    function createFirework() {
+        const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffa500', '#ff1493'];
+        const firework = document.createElement('div');
+        firework.style.position = 'fixed';
+        firework.style.left = Math.random() * 100 + '%';
+        firework.style.top = Math.random() * 60 + 20 + '%';
+        firework.style.width = '4px';
+        firework.style.height = '4px';
+        firework.style.pointerEvents = 'none';
+        firework.style.zIndex = '9999';
+        document.body.appendChild(firework);
+
+        // Crear partículas del fuego artificial
+        const particleCount = 30;
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            const angle = (Math.PI * 2 * i) / particleCount;
+            const velocity = 50 + Math.random() * 50;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            particle.style.position = 'absolute';
+            particle.style.width = '3px';
+            particle.style.height = '3px';
+            particle.style.backgroundColor = color;
+            particle.style.borderRadius = '50%';
+            particle.style.boxShadow = `0 0 10px ${color}, 0 0 20px ${color}`;
+            
+            firework.appendChild(particle);
+            
+            const tx = Math.cos(angle) * velocity;
+            const ty = Math.sin(angle) * velocity;
+            
+            particle.animate([
+                { transform: 'translate(0, 0)', opacity: 1 },
+                { transform: `translate(${tx}px, ${ty}px)`, opacity: 0 }
+            ], {
+                duration: 1000 + Math.random() * 500,
+                easing: 'cubic-bezier(0, 0.9, 0.1, 1)'
+            });
+        }
+        
+        setTimeout(() => firework.remove(), 2000);
     }
 };

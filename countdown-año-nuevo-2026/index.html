@@ -5,12 +5,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Cuenta atras para el 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="main.js"></script>
 </head>
 
 <body>
+  <!-- Audio -->
+  <audio id="background-music" loop>
+    <source src="año-nuevo.mp3" type="audio/mpeg">
+  </audio>
+  
+  <!-- Botón de mute -->
+  <button id="mute-btn" class="mute-button" aria-label="Silenciar música">
+    <span id="mute-icon">🔊</span>
+  </button>
+  
   <div id="bg">
+    <div id="stars-container"></div>
     <svg id="bg__moon" height="100" width="100">
       <circle cx="50" cy="50" r="35" fill="lightblue" />
     </svg>
